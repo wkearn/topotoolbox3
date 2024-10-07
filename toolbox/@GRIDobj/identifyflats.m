@@ -55,13 +55,19 @@ else
 end
 nhood = ones(3);
 
+% Use libtopotoolbox's identifyflats
+% bitget(iflats,1) == 1 for flats
+% bitget(iflats,2) == 1 for sills
+% bitget(iflats,4) == 1 for pre-sills
+% 2024-10-07: closed pixels are not yet identified by libtopotoolbox 
+iflats = tt_identifyflats(dem);
 
 % identify flats
 % flats: logical matrix with true where cells don't have lower neighbors
 if flag_nans
-    flats = imerode(dem,nhood) == dem & ~log_nans;
+    flats = bitget(iflats,1) & ~log_nans;
 else
-    flats = imerode(dem,nhood) == dem;
+    flats = bitget(iflats,1) == 1;
 end
 
 % remove flats at the border
@@ -80,10 +86,9 @@ varargout{1}.name = 'flats';
 
 % identify sills
 if nargout >= 2   
-    % find sills and set marker
-    Imr = -inf(size(dem));
-    Imr(flats) = dem(flats);
-    Imr = (imdilate(Imr,ones(3)) == dem) & ~flats;
+    % find sills
+    % Sills have bit 2 set in the flats array
+    Imr = bitget(iflats,2) == 1;
     
     if flag_nans
         Imr(log_nans) = false;

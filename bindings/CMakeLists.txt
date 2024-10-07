@@ -24,8 +24,16 @@ matlab_add_mex(
   LINK_TO topotoolbox
 )
 
+matlab_add_mex(
+  NAME tt_identifyflats
+  MODULE
+  SRC tt_identifyflats.c
+  R2018a
+  LINK_TO topotoolbox
+)
+
 install(
-  TARGETS tt_has_topotoolbox
+  TARGETS tt_has_topotoolbox tt_identifyflats
   DESTINATION "."
   COMPONENT Runtime
 )
