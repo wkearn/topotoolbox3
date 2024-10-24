@@ -32,20 +32,6 @@ jobs:
         with:
           path: tests/snapshots/data
           key: snapshots-${{ env.snapshot_version }}
-      - name: Download and extract snapshot data
-        if: steps.cache-snapshots.outputs.cache-hit != 'true'
-        working-directory: tests/snapshots
-        shell: bash
-        run: |
-          curl -L -o snapshot_data.tar.gz \
-          "https://github.com/TopoToolbox/snapshot_data/releases/download/$snapshot_version/snapshot_data.tar.gz"
-          tar -xzf snapshot_data.tar.gz
-      - name: Verify snapshot data
-        working-directory: tests/snapshots
-        shell: bash
-        if: ${{ matrix.os != 'windows-latest' }}
-        run:
-          shasum -c --status sha256sum.txt
       - name: Run checks and tests
         uses: matlab-actions/run-build@v2
         with:

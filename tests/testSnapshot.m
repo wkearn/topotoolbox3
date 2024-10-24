@@ -80,7 +80,16 @@ classdef testSnapshot < matlab.unittest.TestCase
 
     methods (TestParameterDefinition,Static)
         function dataset = findDatasets()
-            % Find all the existing snapshot datasets
+            if ~exist("snapshots/data","dir")
+                disp("Downloading snapshots...");
+                % Download latest snapshot
+                snapshot_archive = websave("snapshots/snapshot_data.tar.gz", ...
+                    "https://github.com/TopoToolbox/snapshot_data/" + ...
+                    "releases/latest/download/snapshot_data.tar.gz");
+                % Extract archive
+                untar(snapshot_archive,"snapshots");
+            end
+
             available_datasets = [{},struct2table(dir("snapshots/data/*/dem.tif")).folder];
             if ~isempty(available_datasets)
                 dataset = available_datasets;
