@@ -50,7 +50,7 @@ function opts = toolboxOptions
     % .mltbx extension, MATLAB appends the extension automatically when it
     % creates the file.
 
-    opts.OutputFile = fullfile("release","TopoToolbox");
+    opts.OutputFile = fullfile("release",['TopoToolbox_' computer('arch')]);
     
     % Latest MATLAB release that the toolbox is compatible with, specified
     % as a string using the format RXXXXx, for example, "R2023a". If there
