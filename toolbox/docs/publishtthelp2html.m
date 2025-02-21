@@ -34,7 +34,7 @@ for r = 1:numel(files)
     [~,name,~] = fileparts(files(r).name);
     export(fullfile(docdir,'mlxfiles',files(r).name), ...
         fullfile(docdir,'html',name), ...
-        Format="html", Run=false);
+        Format="html", Run=true, Caching=false);
 end
 
 % Copy the helptoc.xml file
