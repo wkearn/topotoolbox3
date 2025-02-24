@@ -51,7 +51,15 @@ jobs:
           sudo apt-get install -y xvfb
           Xvfb :99 &
           echo "DISPLAY=:99" >> $GITHUB_ENV
-      - name: Package toolbox
+      - name: Compile libtopotoolbox and MEX files
+        uses: matlab-actions/run-build@v2
+        with:
+          tasks: compile
+      - name: Build docs
+        uses: matlab-actions/run-build@v2
+        with:
+          tasks: doc
+      - name: Build package
         uses: matlab-actions/run-build@v2
         with:
           tasks: package
