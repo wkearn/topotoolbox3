@@ -25,6 +25,7 @@ docdir = fileparts(fileloc);
 files = dir(fullfile(docdir,'mlxfiles/*.mlx'));
 
 [~,~] = mkdir(fullfile(docdir,"mfiles"));
+oldpath = addpath(fullfile(docdir,"mfiles"));
 
 % h = waitbar(0,'Please wait');
 
@@ -44,3 +45,6 @@ copyfile(fullfile(docdir,"helptoc.xml"),fullfile(docdir,"html"));
 
 % Build the search database for the documentation files
 builddocsearchdb(fullfile(docdir,'html'))
+
+% Restore the previous path
+path(oldpath);
