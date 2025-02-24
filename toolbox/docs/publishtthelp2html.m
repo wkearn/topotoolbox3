@@ -24,7 +24,7 @@ docdir = fileparts(fileloc);
 % list all mlx files
 files = dir(fullfile(docdir,'mlxfiles/*.mlx'));
 
-[~,~] = mkdir(fullfile(docdir,"html"));
+[~,~] = mkdir(fullfile(docdir,"mfiles"));
 
 % h = waitbar(0,'Please wait');
 
@@ -33,8 +33,10 @@ for r = 1:numel(files)
     disp(['Exporting ' files(r).name]);
     [~,name,~] = fileparts(files(r).name);
     export(fullfile(docdir,'mlxfiles',files(r).name), ...
-        fullfile(docdir,'html',name), ...
-        Format="html", Run=true);
+        fullfile(docdir,'mfiles',name), ...
+        Format="m", Run=false);
+    publish(fullfile(docdir,"mfiles",[name '.m']), ...
+        'outputDir',fullfile(docdir,"html"));
 end
 
 % Copy the helptoc.xml file
