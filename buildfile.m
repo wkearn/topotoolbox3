@@ -118,6 +118,7 @@ end
 
 function docTask(~)
     oldpath = addpath(genpath("toolbox"));
+    rmpath(genpath("toolbox/docs"));
     finalize = onCleanup(@()(path(oldpath)));
 
     publishtthelp2html;
