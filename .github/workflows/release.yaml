@@ -58,6 +58,7 @@ jobs:
           tasks: compile
       - name: Build docs
         uses: matlab-actions/run-build@v2
+        if: ${{ matrix.os != 'macos-latest' }}
         with:
           tasks: doc
       - name: Build package
