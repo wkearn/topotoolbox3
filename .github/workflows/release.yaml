@@ -24,6 +24,7 @@ jobs:
           products: >
             Mapping_Toolbox
             Image_Processing_Toolbox
+            Optimization_Toolbox
             MATLAB_Coder
       - name: Cache snapshot data
         id: cache-snapshots
