@@ -1,5 +1,7 @@
 classdef testFLOWobj < matlab.unittest.TestCase
 %TESTREADFLOWobj Tests FLOWobj functions
+
+% TODO(wkearn): use snapshot data here
    
     properties      
         url = 'https://raw.githubusercontent.com/TopoToolbox/DEMs/master/';
@@ -56,8 +58,8 @@ classdef testFLOWobj < matlab.unittest.TestCase
             
             FD  = FLOWobj(DEM,'multi');
             A   = flowacc(FD);
-            figure; imagesc(log(A)); pause(2); close
             verifyInstanceOf(testCase,FD,'FLOWobj')
+            verifyInstanceOf(testCase,A,'GRIDobj')
         end
 
         
